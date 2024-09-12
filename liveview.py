@@ -25,9 +25,9 @@ def run():
     args = parse_args()
 
     ### make pyqtWidget
-    win = pg.GraphicsLayoutWidget(show=True, title="Basic plotting examples")
+    win = pg.GraphicsLayoutWidget(show=True)
     win.resize(1000,600)
-    win.setWindowTitle('pyqtgraph example: Plotting')
+    win.setWindowTitle('OOSpecTools liveview')
     
     ### Define plot Layout
     p1 = win.addPlot()
