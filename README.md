@@ -58,7 +58,7 @@ The following hotkeys can be used:
 |:-:|-----------|
 |S|saves current spectrum as numpy.ndarray to directory specified in save path. The full spectrum is saved, not only the range specified by --wavelength|
 |d|use internal dark count correction of the spectrometer
-|+|increase aquisition time by 10 ms
-|-|decrease aquisition time by 10 ms (minimum is 10 ms)
+|+|increase integration time by 10 ms
+|-|decrease integration time by 10 ms (minimum is 10 ms)
 
 
