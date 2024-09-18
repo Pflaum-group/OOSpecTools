@@ -1,5 +1,5 @@
 from typing import Tuple
-
+from os import path
 import numpy as np
 import pyqtgraph as pg
 from PyQt5.QtCore import pyqtSlot, QTimer
@@ -15,6 +15,7 @@ class LiveView(QtWidgets.QMainWindow):
         self._aqtime = aqtime
         self._wavelength = wavelength
         self._savepath = savepath
+        self._savecounter = 0
         
         ### Build UI
         self.window = pg.GraphicsLayoutWidget(show=True)
@@ -31,7 +32,10 @@ class LiveView(QtWidgets.QMainWindow):
 
         self.setCentralWidget(self.window)
         self.show()
+        
         # add shortcut rules
+        self.shortcut_add_save_spectrum = QtWidgets.QShortcut(QKeySequence("s"), self)
+        self.shortcut_add_save_spectrum.activated.connect(self.save_spectrum)
 
         
         ### Connect and start spectrometer
@@ -48,6 +52,11 @@ class LiveView(QtWidgets.QMainWindow):
         _int = self.spectrometer.aquire_spectrum()
         self.curve.setData(y=_int, x=self.spectrometer.wavelength)
 
+    @pyqtSlot()
+    def save_spectrum(self):
+        np.save(path.join(self.savepath,f"spectrum_{self._savecounter:03d}.npy"), 
+                np.vstack((self.spectrometer.wavelength, self.spectrometer.aquire_spectrum())))
+        self._savecounter += 1
 
     ### Attributes
     @property
